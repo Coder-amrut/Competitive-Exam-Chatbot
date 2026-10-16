@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>AI स्पर्धा परीक्षा स्टुडिओ | Marathi Competitive Exam AI Studio</title>
+    <meta name="description" content="मराठी स्पर्धा परीक्षांसाठी अत्याधुनिक AI आधारित MCQ सराव आणि परीक्षा पोर्टल. MPSC, पोलीस भरती, तलाठी आणि इतर परीक्षांसाठी सानुकूलित प्रश्न आणि टायमर.">
+    <meta name="keywords" content="MPSC, Marathi MCQ, Police Bharti, Talathi Bharti, Competitive Exam, AI Exam Studio, Marathi Test Series">
+    
+    <!-- PWA & Device-Free Offline Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#090d16">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AI स्पर्धा परीक्षा">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Google Fonts: Noto Sans Devanagari & Outfit / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dark">
+    <!-- Background Ambient Glows -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
+
+    <div class="app-wrapper">
+        <!-- Top Navigation Bar -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">AI स्पर्धा परीक्षा <span class="gradient-text">स्टुडिओ</span></h1>
+                    <p class="brand-subtitle">Smart Marathi Competitive Exam Platform</p>
+                </div>
+            </div>
+
+            <!-- Top Controls -->
+            <div class="header-actions">
+                <div class="exam-status-pill" id="examStatusBadge" style="display: none;">
+                    <span class="live-dot"></span>
+                    <span id="examStatusText">परीक्षा सुरू आहे</span>
+                </div>
+
+                <div class="lang-toggle-wrap">
+                    <button class="btn btn-secondary btn-sm" id="installAppBtn" style="display: none;" title="मोबाईल किंवा संगणकावर ॲप इन्स्टॉल करा">
+                        <i class="fa-solid fa-download"></i> <span class="hide-mobile">इन्स्टॉल करा</span>
+                    </button>
+                    <button class="icon-btn" id="soundToggleBtn" title="आवाज चालू/बंद (Sound Toggle)">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" id="langSwitchBtn" title="भाषा बदला">
+                        <i class="fa-solid fa-language"></i> <span id="currentLangLabel">मराठी</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Screen Container -->
+        <main class="main-content">
+            
+            <!-- VIEW 1: EXAM STUDIO CONFIGURATOR (HOME) -->
+            <section id="viewStudio" class="app-view active">
+                <div class="studio-hero">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-bolt"></i> AI पॉवर्ड परीक्षा निर्मिती
+                    </div>
+                    <h2 class="hero-heading">आपला <span class="gradient-text">अभ्यासक्रम व वेळ</span> निवडा, AI मिनिटांत परीक्षा तयार करेल!</h2>
+                    <p class="hero-description">MPSC, तलाठी, पोलीस भरती, ZP किंवा कोणताही सानुकूल विषय निवडून मराठीमध्ये वेळेसह वस्तुनिष्ठ (MCQ) सराव परीक्षा सुरू करा.</p>
+                </div>
+
+                <div class="studio-grid">
+                    <!-- Left Config Panel -->
+                    <div class="config-card glass-panel">
+                        <div class="card-header">
+                            <div class="step-num">१</div>
+                            <div>
+                                <h3 class="card-title">अभ्यासक्रम व विषय (Syllabus & Subject)</h3>
+                                <p class="card-desc">लोकप्रिय स्पर्धा परीक्षा घटक निवडा किंवा स्वतःचा विषय प्रविष्ट करा</p>
+                            </div>
+                        </div>
+
+                        <!-- Syllabus Presets -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fa-solid fa-tags"></i> पूर्व-निर्धारित अभ्यासक्रम (Select Preset)</label>
+                            <div class="preset-chips" id="presetChips">
+                                <button type="button" class="chip active" data-subject="all">
+                                    <i class="fa-solid fa-layer-group"></i> सर्व विषय (Full Mock)
+                                </button>
+                                <button type="button" class="chip" data-subject="marathi_grammar">
+                                    <i class="fa-solid fa-book"></i> मराठी व्याकरण व शब्दसंग्रह
+                                </button>
+                                <button type="button" class="chip" data-subject="history">
+                                    <i class="fa-solid fa-landmark"></i> महाराष्ट्र व भारत इतिहास
+                                </button>
+                                <button type="button" class="chip" data-subject="geography">
+                                    <i class="fa-solid fa-earth-asia"></i> भूगोल व पर्यावरण
+                                </button>
+                                <button type="button" class="chip" data-subject="polity">
+                                    <i class="fa-solid fa-scale-balanced"></i> राज्यघटना व पंचायतराज
+                                </button>
+                                <button type="button" class="chip" data-subject="maths_reasoning">
+                                    <i class="fa-solid fa-calculator"></i> अंकगणित व बुद्धिमत्ता
+                                </button>
+                                <button type="button" class="chip" data-subject="science">
+                                    <i class="fa-solid fa-flask"></i> सामान्य विज्ञान
+                                </button>
+                                <button type="button" class="chip" data-subject="current_affairs">
+                                    <i class="fa-solid fa-newspaper"></i> चालू घडामोडी
+                                </button>
+                                <button type="button" class="chip" data-subject="custom">
+                                    <i class="fa-solid fa-pen-fancy"></i> सानुकूल / स्वतःचा विषय (Custom)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Syllabus Input Box (revealed when custom or for custom prompt) -->
+                        <div class="form-group" id="customSyllabusGroup">
+                            <label class="form-label" for="customSyllabusInput">
+                                <i class="fa-solid fa-keyboard"></i> विशिष्ट विषय / टायटल / नोट्स टाका (Optional Topic Notes):
+                            </label>
+                            <textarea id="customSyllabusInput" class="form-textarea" rows="3" placeholder="उदा. छत्रपती शिवाजी महाराज प्रशासन, समास व संधी, 1857 चा उठाव, भारताची राज्यघटना कलम 1 ते 51, इत्यादी..."></textarea>
+                            <span class="field-hint">तुम्ही येथे कोणतीही माहिती किंवा अभ्यासक्रम पेस्ट करू शकता, ज्यावर प्रश्न हवे आहेत.</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Config Panel -->
+                    <div class="config-card glass-panel">
+                        <div class="card-header">
+                            <div class="step-num">२</div>
+                            <div>
+                                <h3 class="card-title">परीक्षेचे स्वरूप व टायमर (Pattern & Timer)</h3>
+                                <p class="card-desc">प्रश्न संख्या, अडचण पातळी आणि वेळेचे नियोजन</p>
+                            </div>
+                        </div>
+
+                        <div class="config-row-2">
+                            <!-- Question Count -->
+                            <div class="form-group">
+                                <label class="form-label" for="questionCountSelect">
+                                    <i class="fa-solid fa-list-ol"></i> प्रश्नांची संख्या (Questions)
+                                </label>
+                                <div class="select-wrapper">
+                                    <select id="questionCountSelect" class="form-select">
+                                        <option value="5">५ प्रश्न (द्रुत सराव - Quick)</option>
+                                        <option value="10" selected>१० प्रश्न (मानक - Standard)</option>
+                                        <option value="15">१५ प्रश्न (सखोल सराव)</option>
+                                        <option value="20">२० प्रश्न (मिनी टेस्ट)</option>
+                                        <option value="25">२५ प्रश्न (स्पर्धा परीक्षा पॅटर्न)</option>
+                                        <option value="30">३० प्रश्न (फुल टेस्ट)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Difficulty Level -->
+                            <div class="form-group">
+                                <label class="form-label" for="difficultySelect">
+                                    <i class="fa-solid fa-gauge-high"></i> अडचण पातळी (Difficulty)
+                                </label>
+                                <div class="select-wrapper">
+                                    <select id="difficultySelect" class="form-select">
+                                        <option value="all">मिश्र (सर्व पातळ्या - Mixed)</option>
+                                        <option value="easy">सोपे (तलाठी / पोलीस भरती पातळी)</option>
+                                        <option value="medium" selected>मध्यम (संयुक्त गट ब व क पातळी)</option>
+                                        <option value="hard">कठीण (MPSC राज्यसेवा / विश्लेषणात्मक)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timer Setup -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fa-solid fa-stopwatch"></i> परीक्षेची वेळ (Exam Timer Duration)</label>
+                            <div class="timer-chips" id="timerChips">
+                                <button type="button" class="chip" data-time="5">५ मिनिटे</button>
+                                <button type="button" class="chip active" data-time="10">१० मिनिटे</button>
+                                <button type="button" class="chip" data-time="15">१५ मिनिटे</button>
+                                <button type="button" class="chip" data-time="20">२० मिनिटे</button>
+                                <button type="button" class="chip" data-time="30">३० मिनिटे</button>
+                                <button type="button" class="chip" data-time="custom">सानुकूल (Custom)</button>
+                                <button type="button" class="chip" data-time="0">टायमर नाही (No Limit)</button>
+                            </div>
+                            <div id="customTimerRow" class="custom-timer-row" style="display: none;">
+                                <input type="number" id="customTimeInput" class="form-input" min="1" max="180" placeholder="मिनिटे प्रविष्ट करा (उदा. 45)">
+                                <span>मिनिटे</span>
+                            </div>
+                        </div>
+
+                        <!-- Question Type Filter -->
+                        <div class="form-group">
+                            <label class="form-label"><i class="fa-solid fa-shapes"></i> प्रश्नांचा प्रकार (Question Style)</label>
+                            <div class="select-wrapper">
+                                <select id="questionStyleSelect" class="form-select">
+                                    <option value="all">सर्व प्रकार (One-liner, विधाने, विश्लेषणात्मक)</option>
+                                    <option value="direct">सरळ वस्तुनिष्ठ प्रश्न (Direct MCQs)</option>
+                                    <option value="statement">विधाने व पर्यायी निवडी (MPSC Statement Pattern)</option>
+                                    <option value="practical">व्याकरण व गणितीय सोडवणूक (Problem Solving)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- AI Engine Mode Switcher -->
+                        <div class="form-group ai-settings-box">
+                            <div class="ai-box-header">
+                                <span class="ai-engine-tag"><i class="fa-solid fa-brain"></i> AI जनरेशन इंजिन</span>
+                                <button type="button" class="btn-text-link" id="toggleApiSettingsBtn">
+                                    <i class="fa-solid fa-key"></i> API की स्थिती (सक्रिय)
+                                </button>
+                            </div>
+                            <p class="ai-box-desc" id="aiBoxStatusText">
+                                <span style="color: var(--accent-emerald); font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Google AI API Key सक्रिय आहे</span> • कोणत्याही अभ्यासक्रमावर थेट अमर्याद प्रश्न तयार केले जातील.
+                            </p>
+
+                            <!-- Live Gemini / AI Key Drawer -->
+                            <div id="apiSettingsDrawer" class="api-settings-drawer" style="display: none;">
+                                <div class="api-input-wrap">
+                                    <label class="form-label" for="geminiApiKeyInput">
+                                        <i class="fa-solid fa-key"></i> Google Gemini API Key:
+                                    </label>
+                                    <input type="password" id="geminiApiKeyInput" class="form-input" value="" placeholder="API Key प्रविष्ट करा (पर्यायी)">
+                                    <span class="field-hint">येथे तुमची वैयक्तिक Google Gemini API key टाका किंवा अंगभूत स्मार्ट इंजिन वापरा.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Launch Button -->
+                        <div class="studio-actions">
+                            <button id="startExamBtn" class="btn btn-primary btn-lg pulse-glow">
+                                <i class="fa-solid fa-play"></i> परीक्षा सुरू करा (Start Exam Now)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Highlight Cards -->
+                <div class="features-row">
+                    <div class="feature-card">
+                        <div class="feat-icon"><i class="fa-solid fa-language"></i></div>
+                        <h4>अस्सल मराठी भाषेतील प्रश्न</h4>
+                        <p>MPSC व स्पर्धा परीक्षांच्या अधिकृत काठिण्यपातळीनुसार अचूक मराठी भाषा रचना व स्पष्टीकरण.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <h4>रिअल-टाईम टायमर व चेतावणी</h4>
+                        <p>वेळेचे अचूक व्यवस्थापन, शेवटच्या २ मिनिटांचा अलर्ट व स्वयंचलित सबमिट सुविधा.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feat-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h4>सखोल विश्लेषण व स्पष्टीकरण</h4>
+                        <p>परीक्षा संपताच अचूकता, गुण, विषयवार कामगिरी आणि प्रत्येक प्रश्नाचे सविस्तर मराठी स्पष्टीकरण.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feat-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                        <h4>PDF रिपोर्ट व उत्तरपत्रिका</h4>
+                        <p>तुमचे गुणपत्रक व सर्व प्रश्नोत्तरांची पत्रिका एका क्लिकवर डाउनलोड किंवा प्रिंट करा.</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- VIEW 2: LIVE EXAM ROOM (TCS iON / MPSC Style) -->
+            <section id="viewExam" class="app-view">
+                <!-- Exam Bar -->
+                <div class="exam-top-bar glass-panel">
+                    <div class="exam-info">
+                        <span class="exam-tag" id="examSubjectTag">मराठी स्पर्धा परीक्षा</span>
+                        <span class="exam-sub-info" id="examDifficultyTag">पातळी: मध्यम</span>
+                    </div>
+
+                    <div class="exam-timer-box" id="examTimerContainer">
+                        <i class="fa-regular fa-clock timer-icon"></i>
+                        <span class="timer-label">शिल्लक वेळ:</span>
+                        <span class="timer-digits" id="timerDisplay">10:00</span>
+                    </div>
+
+                    <div class="exam-finish-wrap">
+                        <button class="btn btn-secondary btn-sm mobile-palette-btn" id="mobilePaletteBtn" title="प्रश्न तक्ता उघडा">
+                            <i class="fa-solid fa-table-cells"></i> <span class="hide-small">तक्ता</span>
+                        </button>
+                        <button class="btn btn-danger btn-sm" id="submitExamBtn">
+                            <i class="fa-solid fa-flag-checkered"></i> <span class="submit-text">सबमिट</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Backdrop for mobile palette drawer -->
+                <div class="palette-backdrop" id="paletteBackdrop"></div>
+
+                <!-- Main Exam Workplace -->
+                <div class="exam-workplace">
+                    <!-- Left: Question Panel -->
+                    <div class="question-container glass-panel">
+                        <div class="question-header">
+                            <div class="q-meta">
+                                <span class="q-badge" id="currentQNumBadge">प्रश्न क्रमांक १ / १०</span>
+                                <span class="q-category-tag" id="qCategoryTag">मराठी व्याकरण</span>
+                                <span class="q-marks-tag">+१ गुण | ऋण ०.२५</span>
+                            </div>
+                            <button class="btn-flag" id="flagReviewBtn" title="पुनरावलोकनासाठी खूण करा">
+                                <i class="fa-regular fa-bookmark"></i> <span id="flagReviewText">खूण करा (Review)</span>
+                            </button>
+                        </div>
+
+                        <!-- Question Content -->
+                        <div class="question-body">
+                            <div class="question-text" id="questionText">
+                                प्रश्नाची माहिती येथे लोड होत आहे...
+                            </div>
+                            
+                            <!-- If question has extra passage or code -->
+                            <div class="question-context" id="questionContext" style="display: none;"></div>
+
+                            <!-- Options Container -->
+                            <div class="options-list" id="optionsContainer">
+                                <!-- Options dynamically rendered -->
+                            </div>
+                        </div>
+
+                        <!-- Question Bottom Navigation -->
+                        <div class="question-footer">
+                            <div class="footer-left">
+                                <button class="btn btn-secondary" id="clearResponseBtn">
+                                    <i class="fa-solid fa-arrow-rotate-left"></i> उत्तर पुसा (Clear)
+                                </button>
+                            </div>
+                            <div class="footer-right">
+                                <button class="btn btn-secondary" id="prevQuestionBtn">
+                                    <i class="fa-solid fa-chevron-left"></i> मागील (Prev)
+                                </button>
+                                <button class="btn btn-primary" id="nextQuestionBtn">
+                                    पुढील (Next) <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Question Palette & Overview -->
+                    <div class="palette-sidebar glass-panel" id="paletteSidebar">
+                        <div class="palette-header">
+                            <h4 class="palette-title"><i class="fa-solid fa-table-cells"></i> प्रश्न तक्ता (Palette)</h4>
+                            <button class="icon-btn mobile-palette-close" id="mobilePaletteCloseBtn" title="बंद करा">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="palette-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot dot-answered"></span>
+                                <span>सोडवलेले (<strong id="legendAnsweredCount">0</strong>)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-marked"></span>
+                                <span>खूण केलेले (<strong id="legendMarkedCount">0</strong>)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-unanswered"></span>
+                                <span>न सोडवलेले (<strong id="legendUnansweredCount">0</strong>)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-not-visited"></span>
+                                <span>न पाहिलेले (<strong id="legendNotVisitedCount">0</strong>)</span>
+                            </div>
+                        </div>
+
+                        <!-- Question Buttons Grid -->
+                        <div class="palette-grid" id="questionPaletteGrid">
+                            <!-- Dynamic 1..N buttons -->
+                        </div>
+
+                        <!-- Quick Summary Card -->
+                        <div class="palette-quick-stat">
+                            <div class="stat-progress-bar">
+                                <div class="progress-fill" id="examProgressBar" style="width: 0%;"></div>
+                            </div>
+                            <div class="stat-label-wrap">
+                                <span>प्रगती: <strong id="progressPercentText">०%</strong></span>
+                                <span id="answeredRatioText">०/१० पूर्ण</span>
+                            </div>
+                        </div>
+
+                        <!-- Pause / Instruction Helper -->
+                        <div class="palette-footer-actions">
+                            <button class="btn btn-outline btn-full btn-sm" id="pauseExamBtn">
+                                <i class="fa-solid fa-pause"></i> परीक्षा थांबवा (Pause)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- VIEW 3: SCORE & ANALYSIS REPORT -->
+            <section id="viewResult" class="app-view">
+                <div class="result-hero glass-panel">
+                    <div class="result-header-row">
+                        <div class="result-badge-wrap">
+                            <div class="result-badge" id="resultStatusIcon">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h2 class="result-title" id="resultHeading">उत्कृष्ट कामगिरी! परीक्षा यशस्वीरीत्या पूर्ण.</h2>
+                                <p class="result-subtitle" id="resultSubheading">आपले गुण व सविस्तर विश्लेषण खाली दिले आहे.</p>
+                            </div>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn btn-secondary btn-sm" id="printReportBtn">
+                                <i class="fa-solid fa-print"></i> प्रिंट / PDF सेव्ह करा
+                            </button>
+                            <button class="btn btn-primary btn-sm" id="newExamBtn">
+                                <i class="fa-solid fa-plus"></i> नवीन परीक्षा घ्या
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Cards Grid -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon color-indigo"><i class="fa-solid fa-star"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">एकूण गुण (Score)</span>
+                                <div class="metric-val" id="scoreDisplay">८ / १०</div>
+                                <span class="metric-sub" id="scorePercentDisplay">८०% टक्केवारी</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon color-emerald"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">बरोबर उत्तरे (Correct)</span>
+                                <div class="metric-val text-emerald" id="correctCountDisplay">८</div>
+                                <span class="metric-sub">अचूक सोडवले</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon color-rose"><i class="fa-solid fa-circle-xmark"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">चूक उत्तरे (Incorrect)</span>
+                                <div class="metric-val text-rose" id="incorrectCountDisplay">१</div>
+                                <span class="metric-sub">ऋण गुण: -०.२५</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon color-amber"><i class="fa-solid fa-clock"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">घेतलेला वेळ (Time Taken)</span>
+                                <div class="metric-val" id="timeTakenDisplay">०६:४५</div>
+                                <span class="metric-sub" id="avgTimeDisplay">सरासरी ४० सेकंद / प्रश्न</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Filter & Detailed Answer Keys -->
+                <div class="solutions-container glass-panel">
+                    <div class="solutions-header">
+                        <div>
+                            <h3 class="solutions-title"><i class="fa-solid fa-book-open"></i> उत्तरपत्रिका व मराठीत सविस्तर स्पष्टीकरण (Answer Key with Explanations)</h3>
+                            <p class="solutions-desc">प्रत्येक प्रश्नाचे योग्य उत्तर व त्यामागील कारण/नियम जाणून घ्या</p>
+                        </div>
+
+                        <!-- Filter Chips -->
+                        <div class="solution-filters">
+                            <button class="chip active" data-filter="all">सर्व प्रश्न (<span id="filterAllCount">१०</span>)</button>
+                            <button class="chip" data-filter="incorrect">फक्त चुकलेले (<span id="filterIncorrectCount">१</span>)</button>
+                            <button class="chip" data-filter="correct">फक्त बरोबर (<span id="filterCorrectCount">८</span>)</button>
+                            <button class="chip" data-filter="unanswered">सोडवलेले नसलेले (<span id="filterUnansweredCount">१</span>)</button>
+                        </div>
+                    </div>
+
+                    <!-- List of All Questions with Explanations -->
+                    <div class="solutions-list" id="solutionsList">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>© २०२६ <strong>AI स्पर्धा परीक्षा स्टुडिओ</strong> • MPSC, Talathi, Police Bharti, ZP तयारीसाठी सर्वोत्तम मित्र • Crafted with ❤️ in Maharashtra</p>
+        </footer>
+    </div>
+
+    <!-- Confirm Submit Modal -->
+    <div class="modal-overlay" id="confirmModal" style="display: none;">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <div class="modal-icon warning"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3 class="modal-title">परीक्षा सबमिट करायची आहे का?</h3>
+            </div>
+            <div class="modal-body">
+                <p>खालीलप्रमाणे तुमची स्थिती आहे:</p>
+                <div class="modal-stats">
+                    <div class="modal-stat-row">
+                        <span>एकूण प्रश्न:</span> <strong id="modalTotalQ">१०</strong>
+                    </div>
+                    <div class="modal-stat-row">
+                        <span>सोडवलेले प्रश्न:</span> <strong class="text-emerald" id="modalAnsweredQ">८</strong>
+                    </div>
+                    <div class="modal-stat-row">
+                        <span>सोडवलेले नसलेले:</span> <strong class="text-rose" id="modalUnansweredQ">२</strong>
+                    </div>
+                    <div class="modal-stat-row">
+                        <span>पुनरावलोकन खूण केलेले:</span> <strong class="text-amber" id="modalMarkedQ">१</strong>
+                    </div>
+                </div>
+                <p class="modal-confirm-note">सबमिट केल्यानंतर तुम्हाला पुन्हा उत्तरे बदलता येणार नाहीत.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="modalCancelBtn">सराव सुरू ठेवा</button>
+                <button class="btn btn-primary" id="modalConfirmSubmitBtn">होय, सबमिट करा</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pause Modal -->
+    <div class="modal-overlay" id="pauseModal" style="display: none;">
+        <div class="modal-card glass-panel text-center">
+            <div class="modal-icon"><i class="fa-solid fa-circle-pause"></i></div>
+            <h3 class="modal-title">परीक्षा थांबवली आहे (Paused)</h3>
+            <p class="modal-text">टायमर तात्पुरता थांबवला आहे. विश्रांती घ्या आणि सराव पुन्हा सुरू करण्यासाठी खालील बटण दाबा.</p>
+            <div class="modal-actions center">
+                <button class="btn btn-primary btn-lg" id="resumeExamBtn">
+                    <i class="fa-solid fa-play"></i> पुन्हा सुरू करा (Resume)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data/questionBank.js"></script>
+    <script src="js/ai-engine.js"></script>
+    <script src="js/exam.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

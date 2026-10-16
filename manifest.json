@@ -1,0 +1,25 @@
+{
+  "name": "AI स्पर्धा परीक्षा स्टुडिओ | Marathi Competitive Exam Studio",
+  "short_name": "AI परीक्षा",
+  "description": "MPSC, तलाठी, पोलीस भरती आणि स्पर्धा परीक्षांसाठी स्मार्ट मराठी MCQ सराव पोर्टल",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#6366f1",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' width='192' height='192'%3E%3Crect width='192' height='192' rx='36' fill='%236366f1'/%3E%3Cpath d='M96 40 L160 76 L96 112 L32 76 Z' fill='%23ffffff'/%3E%3Cpath d='M50 86 L50 126 C50 144 96 156 96 156 C96 156 142 144 142 126 L142 86 L96 112 Z' fill='%23e0e7ff'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Crect width='512' height='512' rx='96' fill='%236366f1'/%3E%3Cpath d='M256 100 L430 200 L256 300 L82 200 Z' fill='%23ffffff'/%3E%3Cpath d='M130 228 L130 338 C130 384 256 416 256 416 C256 416 382 384 382 338 L382 228 L256 300 Z' fill='%23e0e7ff'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"]
+}
